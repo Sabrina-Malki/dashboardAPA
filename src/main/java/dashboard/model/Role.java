@@ -14,7 +14,6 @@ public class Role implements Serializable {
     private Long id;
     private String nom;
     private String Description;
-    private Long lot;
     private long niv_sec;
 
 
@@ -23,6 +22,9 @@ public class Role implements Serializable {
 
     @ManyToMany(targetEntity=Permission.class)
     private List<Permission> permissions;
+
+    @ManyToOne(targetEntity=Lot.class)
+    private Lot lot;
 
     public Role(String nom) {
         this.nom = nom;
@@ -52,13 +54,6 @@ public class Role implements Serializable {
         Description = description;
     }
 
-    public Long getLot() {
-        return lot;
-    }
-
-    public void setLot(Long lot) {
-        this.lot = lot;
-    }
 
     public long getNiv_sec() {
         return niv_sec;
@@ -82,6 +77,14 @@ public class Role implements Serializable {
 
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public Lot getLot() {
+        return lot;
+    }
+
+    public void setLot(Lot lot) {
+        this.lot = lot;
     }
 
     public Role() {

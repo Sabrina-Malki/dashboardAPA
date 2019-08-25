@@ -19,11 +19,22 @@ public class Lot implements Serializable {
     private Long id;
     private String Description;
 
+    @OneToMany(mappedBy="lot")
+    private List<Classification> classifications;
+
+    @OneToMany(mappedBy="lot")
+    private List<Role> roles;
+
+    public Lot() {
+    }
+
     public Long getId() {
         return id;
     }
 
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return Description;
@@ -41,10 +52,12 @@ public class Lot implements Serializable {
         this.classifications = classifications;
     }
 
-    @OneToMany(mappedBy="lot")
-    private List<Classification> classifications;
 
-    public Lot() {
+    public List<Role> getRoles() {
+        return roles;
     }
 
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
