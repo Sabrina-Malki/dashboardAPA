@@ -1,13 +1,16 @@
 package dashboard.controller;
 
 import dashboard.model.*;
+import dashboard.repository.PermissionRepo;
 import dashboard.repository.RoleRepo;
 import dashboard.repository.UtilisateurRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -17,27 +20,29 @@ public class UtilisateurController {
      UtilisateurRepo utilRepo;
      @Autowired
      RoleRepo roleRepo;
-     List<Role> roles = new ArrayList<>();
+     @Autowired
+    PermissionRepo permissionRepo;
+     List<Role> roles;
+     List<Permission> permissions;
+     List<String> permission_nom;
+     String permToFind = "valider";
+     Utilisateur user = new Utilisateur(); // TODO: Remplacer par l'instance de l'utilisateur
 
      @RequestMapping("/")
-     public String test() {
-//         Role role= new Role("role1");
-//         Role role2= new Role("role2");
-//         roleRepo.deleteById(2L);
-//         roles.add(role);
-//         roleRepo.save(role);
-//         roles.add(role2);
-//         roleRepo.save(role2);
-//         Utilisateur user = new Utilisateur("smith", "sam", true, "sams", "xyz", "url", roles);
-//         utilRepo.deleteById(11L);
-//         utilRepo.save(user);
+     public String verifierPermission() {
 
-           roles = roleRepo.findByUtilisateurs_id(14L);
-           System.out.println(roles.get(0).getId()+" hey "+roles.get(1).getId());
-         return "dashboard/generalDash.html";
+           roles = roleRepo.findByUtilisateurs_id(user.getId());
+           for (Role r : roles) {
+               permissions = permissionRepo.findByRoles_id(r.getId());
+               boolean permissionExists = permissions.stream().anyMatch(permission -> permToFind.equalsIgnoreCase(permission.getNom()));
+               if (permissionExists) return "dashboard/generalDash.html";
+               else return "dashboard/generalDashNoAccess.html";
+           }
+           return null;
      }
 //    @RequestMapping("/x")
 //    public String home() {
+//
 //        for (Long rid : utilRepo.findRolesUtilisateurs(user.getId()))
 //        {
 //        utilRepo.findPermissionsRoles(rid);

@@ -17,6 +17,7 @@ public class Role implements Serializable {
     private Long lot;
     private long niv_sec;
 
+
     @ManyToMany(targetEntity=Utilisateur.class,mappedBy="roles")
     private List<Utilisateur> utilisateurs;
 
