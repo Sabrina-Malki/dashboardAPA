@@ -28,6 +28,18 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
+    public Utilisateur(String nom, String prenom, Boolean password, String user_name, String profession, String image, List<Role> roles) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.user_name = user_name;
+        this.profession = profession;
+        this.image = image;
+        this.roles = roles;
+    }
+
+    public void setId(Long id) {this.id = id;}
+
     public Long getId() {
         return id;
     }

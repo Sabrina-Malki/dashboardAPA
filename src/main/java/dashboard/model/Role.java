@@ -23,11 +23,17 @@ public class Role implements Serializable {
     @ManyToMany(targetEntity=Permission.class)
     private List<Permission> permissions;
 
+    public Role(String nom) {
+        this.nom = nom;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
-
-
 
     public String getNom() {
         return nom;
