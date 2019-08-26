@@ -1,6 +1,6 @@
 package dashboard.model;
 
-public enum state {
+public enum EtatValidation {
     validee,
     nonValidee,
     enAttente;

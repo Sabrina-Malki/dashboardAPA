@@ -22,7 +22,8 @@ public class Ressource implements Serializable {
     private String photo;
     private Boolean visible;
     private int nbr_consultation;
-    private state etat;
+    @Enumerated(EnumType.STRING)
+    private EtatValidation etat;
 
     @ManyToMany(targetEntity=Classification.class)
     @JoinTable(schema="ressource")
@@ -159,6 +160,10 @@ public class Ressource implements Serializable {
         return communes;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setCommunes(List<Commune> communes) {
         this.communes = communes;
     }
@@ -177,6 +182,14 @@ public class Ressource implements Serializable {
 
     public void setRessourceUtilisateur(List<RessourceUtilisateur> ressourceUtilisateur) {
         this.ressourceUtilisateur = ressourceUtilisateur;
+    }
+
+    public EtatValidation getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatValidation etat) {
+        this.etat = etat;
     }
 
     public Ressource() {

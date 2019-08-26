@@ -2,6 +2,7 @@ package dashboard.controller;
 
 import dashboard.model.*;
 import dashboard.repository.PermissionRepo;
+import dashboard.repository.RessourceRepo;
 import dashboard.repository.RoleRepo;
 import dashboard.repository.UtilisateurRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +60,8 @@ public class UtilisateurController {
         return  mv;
     }
 
-//    @RequestMapping("/x")
+//    @RequestMapping("/")
 //    public String home() {
-//
-//
 //        return "dashboard/generalDash.html";
 //    }
 
