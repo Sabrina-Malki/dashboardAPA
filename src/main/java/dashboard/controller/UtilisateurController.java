@@ -7,47 +7,62 @@ import dashboard.repository.UtilisateurRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
 public class UtilisateurController {
 
-     @Autowired
-     UtilisateurRepo utilRepo;
-     @Autowired
-     RoleRepo roleRepo;
-     @Autowired
+    @Autowired
+    UtilisateurRepo utilRepo;
+    @Autowired
+    RoleRepo roleRepo;
+    @Autowired
     PermissionRepo permissionRepo;
-     List<Role> roles;
-     List<Permission> permissions;
-     List<String> permission_nom;
-     String permToFind = "valider";
-     Utilisateur user = new Utilisateur(); // TODO: Remplacer par l'instance de l'utilisateur
 
-     @RequestMapping("/")
-     public String verifierPermission() {
+    Utilisateur user = new Utilisateur(); // TODO: Remplacer par l'instance de l'utilisateur
 
-           roles = roleRepo.findByUtilisateurs_id(user.getId());
-           for (Role r : roles) {
-               permissions = permissionRepo.findByRoles_id(r.getId());
-               boolean permissionExists = permissions.stream().anyMatch(permission -> permToFind.equalsIgnoreCase(permission.getNom()));
-               if (permissionExists) return "dashboard/generalDash.html";
-               else return "dashboard/generalDashNoAccess.html";
-           }
-           return null;
-     }
+    @RequestMapping("/")
+    public String verifierPermission() {
+        List<Role> roles;
+        List<Permission> permissions;
+        String permToFind = "valider";
+        boolean permissionExists = false;
+        Lot lotRole = new Lot();
+
+
+        roles = roleRepo.findByUtilisateurs_id(user.getId());
+        int i = 0;
+        while (i < roles.size() && permissionExists == false )
+        {
+            lotRole = roles.get(i).getLot();
+            permissions = permissionRepo.findByRoles_id(roles.get(i).getId());
+            permissionExists = permissions.stream().anyMatch(permission -> permToFind.equalsIgnoreCase(permission.getNom()));
+            i++;
+        }
+        if (permissionExists) {
+            getRessourcesValidation(lotRole);
+            return null;
+        }
+        else return "dashboard/generalDashNoAccess.html";
+    }
+
+    public ModelAndView getRessourcesValidation(Lot lot) {
+
+        ModelAndView mv = new ModelAndView();
+        return  mv;
+    }
+
 //    @RequestMapping("/x")
 //    public String home() {
 //
-//        for (Long rid : utilRepo.findRolesUtilisateurs(user.getId()))
-//        {
-//        utilRepo.findPermissionsRoles(rid);
-//        System.out.println("hey");
-//        }
+//
 //        return "dashboard/generalDash.html";
 //    }
 

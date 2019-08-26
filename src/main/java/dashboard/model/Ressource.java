@@ -22,6 +22,7 @@ public class Ressource implements Serializable {
     private String photo;
     private Boolean visible;
     private int nbr_consultation;
+    private state etat;
 
     @ManyToMany(targetEntity=Classification.class)
     @JoinTable(schema="ressource")
