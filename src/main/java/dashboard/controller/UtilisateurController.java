@@ -54,6 +54,7 @@ public class UtilisateurController {
         else return "dashboard/generalDashNoAccess.html";
     }
 
+    @RequestMapping("/x")
     public ModelAndView getRessourcesValidation(Lot lot) {
         ModelAndView mv = new ModelAndView("dashboard/generalDash.html");
         List<Ressource> RessourcesEnAttente;
@@ -69,9 +70,9 @@ public class UtilisateurController {
         nbrEnAttente = RessourcesEnAttente.size();
         nbrValidees = RessourcesValidees.size();
         nbrNonValidees = RessourcesNonValidees.size();
-        mv.addObject(nbrEnAttente);
-        mv.addObject(nbrValidees);
-        mv.addObject(nbrNonValidees);
+        mv.addObject("attente",nbrEnAttente);
+        mv.addObject("validee",nbrValidees);
+        mv.addObject("nonValidee",nbrNonValidees);
         return  mv;
     }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
@@ -145,8 +145,8 @@
                                 <div class="metric">
                                     <span class="icon"><i class="fa fa-download"></i></span>
                                     <p>
-                                        <span class="number">1,252</span>
-                                        <span class="title">Downloads</span>
+                                        <span class="number" th:text="${attente}"></span>
+                                        <span class="title">Ressources en attente de validation</span>
                                     </p>
                                 </div>
                             </div>
@@ -195,7 +195,6 @@
                                 <div class="right">
                                     <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
                                     </button>
-                                    ${alien}
                                     <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
                                 </div>
                             </div>
